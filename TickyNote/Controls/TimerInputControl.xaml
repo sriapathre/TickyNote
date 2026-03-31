@@ -1,0 +1,76 @@
+<UserControl x:Class="TickyNote.Controls.TimerInputControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TickyNote">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <local:BoolToExpanderIconConverter x:Key="BoolToExpanderIcon"/>
+    </UserControl.Resources>
+
+    <StackPanel Margin="0,10,0,0">
+        <!-- Toggle Header (only visible when timers exist) -->
+        <Button HorizontalAlignment="Stretch"
+                Margin="0,0,0,6"
+                Height="34"
+                Background="{Binding ThemeColor}"
+                Style="{StaticResource ThemeButton}"
+                Cursor="Hand"
+                Visibility="{Binding HasTimers, Converter={StaticResource BoolToVisibility}}"
+                Command="{Binding ToggleInputPanelCommand}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding IsInputPanelExpanded, Converter={StaticResource BoolToExpanderIcon}}"
+                           FontSize="10" Margin="0,0,6,0"/>
+                <TextBlock FontWeight="SemiBold" Text="Add New Timer" FontSize="12"/>
+            </StackPanel>
+        </Button>
+
+        <!-- Collapsible Content -->
+        <StackPanel Visibility="{Binding IsInputPanelExpanded, Converter={StaticResource BoolToVisibility}}">
+            <!-- Timer Title -->
+            <TextBox Text="{Binding NewTimerTitle, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,6"
+                     Style="{StaticResource ThemeTextBox}"/>
+
+            <!-- Time Input Row -->
+            <Grid Margin="0,0,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,4,0">
+                    <TextBlock Text="Days" FontSize="10" Foreground="{StaticResource TextMutedBrush}"/>
+                    <TextBox Text="{Binding NewTimerDays, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="4" Background="{StaticResource OverlayInputBrush}" BorderThickness="0" TextAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="2,0">
+                    <TextBlock Text="Hours" FontSize="10" Foreground="{StaticResource TextMutedBrush}"/>
+                    <TextBox Text="{Binding NewTimerHours, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="4" Background="{StaticResource OverlayInputBrush}" BorderThickness="0" TextAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="2,0">
+                    <TextBlock Text="Mins" FontSize="10" Foreground="{StaticResource TextMutedBrush}"/>
+                    <TextBox Text="{Binding NewTimerMinutes, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="4" Background="{StaticResource OverlayInputBrush}" BorderThickness="0" TextAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Margin="4,0,0,0">
+                    <TextBlock Text="Secs" FontSize="10" Foreground="{StaticResource TextMutedBrush}"/>
+                    <TextBox Text="{Binding NewTimerSeconds, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="4" Background="{StaticResource OverlayInputBrush}" BorderThickness="0" TextAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+            <Button Content="Start Countdown"
+                    FontWeight="Bold"
+                    Background="{Binding ThemeColor}"
+                    Style="{StaticResource ThemeButton}"
+                    Command="{Binding AddDefaultCountDownCommand}"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

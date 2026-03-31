@@ -1,0 +1,84 @@
+<UserControl x:Class="TickyNote.Controls.TitleBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TickyNote">
+
+    <UserControl.Resources>
+        <local:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+    </UserControl.Resources>
+
+    <DockPanel Margin="0,0,0,10">
+        <Button DockPanel.Dock="Right"
+                Style="{StaticResource IconButton}"
+                Click="Close_Click">
+            <TextBlock Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
+        </Button>
+        <Button DockPanel.Dock="Right"
+                Style="{StaticResource IconButton}"
+                Click="Options_Click">
+            <TextBlock Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
+            <Button.ContextMenu>
+                <ContextMenu x:Name="OptionsMenu">
+                    <MenuItem Header="Theme Color">
+                        <ItemsControl ItemsSource="{Binding AvailableColors}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" Width="140"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Background="{Binding}"
+                                            Style="{StaticResource ColorPickerButton}"
+                                            Command="{Binding DataContext.SetThemeColorCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                            CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </MenuItem>
+                    <MenuItem Header="Notification Tone">
+                        <ItemsControl ItemsSource="{Binding AvailableTones}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton Content="{Binding}"
+                                                 GroupName="NotificationTone"
+                                                 Command="{Binding DataContext.SetNotificationToneCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                 CommandParameter="{Binding}"
+                                                 Margin="4,2">
+                                        <RadioButton.IsChecked>
+                                            <MultiBinding Converter="{StaticResource EnumToBoolConverter}" Mode="OneWay">
+                                                <Binding Path="DataContext.SelectedNotificationTone" RelativeSource="{RelativeSource AncestorType=ContextMenu}"/>
+                                                <Binding Path="."/>
+                                            </MultiBinding>
+                                        </RadioButton.IsChecked>
+                                    </RadioButton>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </MenuItem>
+                    <MenuItem Header="Default Countdown">
+                        <ItemsControl ItemsSource="{Binding AvailableDefaultCountdowns}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton Content="{Binding DisplayName}"
+                                                 GroupName="DefaultCountdown"
+                                                 Command="{Binding DataContext.SetDefaultCountdownCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                 CommandParameter="{Binding}"
+                                                 Margin="4,2">
+                                        <RadioButton.IsChecked>
+                                            <MultiBinding Converter="{StaticResource EnumToBoolConverter}" Mode="OneWay">
+                                                <Binding Path="DataContext.SelectedDefaultCountdown" RelativeSource="{RelativeSource AncestorType=ContextMenu}"/>
+                                                <Binding Path="."/>
+                                            </MultiBinding>
+                                        </RadioButton.IsChecked>
+                                    </RadioButton>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </MenuItem>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <TextBlock Text="Ticky Note" FontWeight="Bold" FontSize="16"/>
+    </DockPanel>
+</UserControl>
