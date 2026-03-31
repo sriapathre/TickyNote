@@ -2,7 +2,7 @@
 
 A modern, lightweight countdown timer app for Windows built with WPF and .NET 10.
 
-![TickyNote](https://img.shields.io/badge/.NET-10.0-blue) ![WPF](https://img.shields.io/badge/WPF-Desktop-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
@@ -17,11 +17,19 @@ A modern, lightweight countdown timer app for Windows built with WPF and .NET 10
 
 ## Screenshots
 
-The app features a sticky note-style interface with:
-- Rounded corners and subtle shadows
-- Semi-transparent overlays
-- Modern scrollbar design
-- Windows 11-style icons
+### Main Timer View
+
+![TickyNote Main Timer View](TickyNote/Assets/Screenshots/main-window.jpg)
+
+### Settings Panel
+
+| Theme Color | Notification Tone | Default Countdown |
+|:-----------:|:-----------------:|:-----------------:|
+| ![Theme Color](TickyNote/Assets/Screenshots/settings-panel1.jpg) | ![Notification Tone](TickyNote/Assets/Screenshots/settings-panel2.jpg) | ![Default Countdown](TickyNote/Assets/Screenshots/settings-panel3.jpg) |
+
+### Notification
+
+![Timer Notification](TickyNote/Assets/Screenshots/notification.jpg)
 
 ## Getting Started
 
@@ -33,11 +41,13 @@ The app features a sticky note-style interface with:
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/TickyNote.git
    ```
 
 2. Navigate to the project directory:
+
    ```bash
    cd TickyNote
    ```
@@ -50,21 +60,47 @@ The app features a sticky note-style interface with:
 ## Usage
 
 ### Adding a Timer
+
 1. Enter a title for your timer (e.g., "Meeting", "Break", "Workout")
 2. Set the duration using Days, Hours, Mins, and Secs fields
 3. Click **Start Countdown**
 
 ### Managing Timers
+
 - **Edit Title**: Click on the timer title to edit it
 - **Delete Timer**: Click the trash icon (🗑) next to a timer
 - **Collapse Input**: Click "Add New Timer" toggle when timers exist
 
-### Changing Theme
-1. Click the settings icon (⚙) in the top-right corner
-2. Select **Theme Color**
-3. Choose from the available color swatches
+### Settings
+
+Click the settings icon (⚙) in the top-right corner to access:
+
+#### Theme Color
+
+Choose from 7 beautiful color themes:
+
+- Yellow (default), Green, Orange, Pink, Blue, Purple, Gray
+
+#### Notification Tone
+
+Select the sound played when a timer completes:
+
+- **Reminder** (default) - Gentle reminder tone
+- **Alarm** - Alert-style notification
+- **Mail** - Standard mail notification sound
+- **IM** - Instant message-style notification
+- **Silent** - No sound (toast only)
+
+#### Default Countdown
+
+Set your preferred default timer duration:
+
+- 30 seconds, 5 minutes, 10 minutes, 30 minutes, 1 hour, 1 day
+
+All settings are automatically saved and persist across app restarts.
 
 ### Window Controls
+
 - **Drag**: Click and drag anywhere on the window to move it
 - **Close**: Click the X button in the top-right corner
 
@@ -72,13 +108,23 @@ The app features a sticky note-style interface with:
 
 ```
 TickyNote/
+├── Assets/
+│   └── app-icon.ico
+├── Controls/
+│   ├── TitleBarControl.xaml/.cs      # Title bar with settings menu
+│   ├── TimerListControl.xaml/.cs     # Timer items display
+│   └── TimerInputControl.xaml/.cs    # New timer input form
 ├── Converters/
-│   └── BoolToExpanderIconConverter.cs
+│   ├── BoolToExpanderIconConverter.cs
+│   └── EnumToBoolConverter.cs
 ├── Models/
+│   ├── DefaultCountdownOption.cs
+│   ├── NotificationTone.cs
 │   └── TimerItem.cs
 ├── Services/
 │   ├── NotificationService.cs
-│   └── TimerStore.cs
+│   ├── SettingsStore.cs              # App settings persistence
+│   └── TimerStore.cs                 # Timer data persistence
 ├── Themes/
 │   └── ThemeResources.xaml
 ├── ViewModels/
@@ -104,9 +150,12 @@ TickyNote/
 
 ## Data Storage
 
-Timer data is stored locally at:
+App data is stored locally at:
+
 ```
-%LOCALAPPDATA%\TickyNote\timers.json
+%LOCALAPPDATA%\TickyNote\
+├── timers.json      # Saved countdown timers
+└── settings.json    # User preferences (theme, notification tone, default countdown)
 ```
 
 ## Contributing
