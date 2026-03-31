@@ -2,7 +2,7 @@
 
 A modern, lightweight countdown timer app for Windows built with WPF and .NET 10.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![TickyNote](https://img.shields.io/badge/.NET-10.0-blue) ![WPF](https://img.shields.io/badge/WPF-Desktop-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## Features
 
