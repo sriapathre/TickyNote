@@ -76,6 +76,11 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Always on Top" 
+                              IsCheckable="True" 
+                              IsChecked="{Binding IsAlwaysOnTop, Mode=OneWay}"
+                              Command="{Binding ToggleAlwaysOnTopCommand}"/>
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>

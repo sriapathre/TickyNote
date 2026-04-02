@@ -11,7 +11,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="CanResize"
-        Topmost="True"
+        Topmost="{Binding IsAlwaysOnTop, Mode=OneWay}"
         Icon="/Assets/app-icon.ico">
 
     <Border CornerRadius="14"

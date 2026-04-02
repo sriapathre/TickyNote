@@ -62,6 +62,9 @@ namespace TickyNote.ViewModels
         [ObservableProperty]
         private NotificationTone _selectedNotificationTone;
 
+        [ObservableProperty]
+        private bool _isAlwaysOnTop = AppSettings.DefaultAlwaysOnTop;
+
         public bool HasTimers => Timers.Count > 0;
 
         public List<SolidColorBrush> AvailableColors { get; } =
@@ -96,6 +99,13 @@ namespace TickyNote.ViewModels
             SaveSettings();
         }
 
+        [RelayCommand]
+        private void ToggleAlwaysOnTop()
+        {
+            IsAlwaysOnTop = !IsAlwaysOnTop;
+            SaveSettings();
+        }
+
         private void SaveSettings()
         {
             var color = ThemeColor.Color;
@@ -103,7 +113,8 @@ namespace TickyNote.ViewModels
             {
                 DefaultCountdownTicks = (SelectedDefaultCountdown?.Duration ?? AppSettings.DefaultCountdownDuration).Ticks,
                 NotificationTone = SelectedNotificationTone,
-                ThemeColor = $"#{color.R:X2}{color.G:X2}{color.B:X2}"
+                ThemeColor = $"#{color.R:X2}{color.G:X2}{color.B:X2}",
+                AlwaysOnTop = IsAlwaysOnTop
             });
         }
 
@@ -116,6 +127,7 @@ namespace TickyNote.ViewModels
             var settings = _settingsStore.Load();
             SelectedNotificationTone = settings.NotificationTone;
             ThemeColor = (SolidColorBrush)new BrushConverter().ConvertFromString(settings.ThemeColor)!;
+            IsAlwaysOnTop = settings.AlwaysOnTop;
 
             // Find matching option for radio button selection
             SelectedDefaultCountdown = AvailableDefaultCountdowns.FirstOrDefault(o =>

@@ -7,6 +7,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Assets\app-icon.ico</ApplicationIcon>
+
+    <!-- MSIX Packaging -->
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsPackageType>MSIX</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <PublishReadyToRun>true</PublishReadyToRun>
+
+    <!-- Package Identity -->
+    <PackageId>TickyNote</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>sriapathre</Authors>
+    <Company>sriapathre</Company>
+    <Product>TickyNote</Product>
+    <Description>A simple sticky note countdown timer app</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
@@ -15,6 +30,12 @@
 
   <ItemGroup>
     <Resource Include="Assets\app-icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Package.appxmanifest" />
+    <None Include="Assets\StoreLogo.png" />
+    <None Include="Assets\SplashScreen.png" />
   </ItemGroup>
 
 </Project>

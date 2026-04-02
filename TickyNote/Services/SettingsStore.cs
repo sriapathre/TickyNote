@@ -42,6 +42,7 @@ namespace TickyNote.Services
         public static readonly TimeSpan DefaultCountdownDuration = TimeSpan.FromMinutes(5);
         public const NotificationTone DefaultNotificationTone = NotificationTone.Reminder;
         public const string DefaultThemeColor = "#FDE68A";
+        public const bool DefaultAlwaysOnTop = true;
 
         public static readonly string[] AvailableColors =
         [
@@ -67,5 +68,6 @@ namespace TickyNote.Services
         public long DefaultCountdownTicks { get; set; } = DefaultCountdownDuration.Ticks;
         public NotificationTone NotificationTone { get; set; } = DefaultNotificationTone;
         public string ThemeColor { get; set; } = DefaultThemeColor;
+        public bool AlwaysOnTop { get; set; } = DefaultAlwaysOnTop;
     }
 }
