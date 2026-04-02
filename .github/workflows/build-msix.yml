@@ -9,11 +9,12 @@ on:
 env:
   PROJECT_PATH: TickyNote/TickyNote.csproj
   CONFIGURATION: Release
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: windows-latest
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -61,7 +62,7 @@ jobs:
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: ./TickyNote.msix
         generate_release_notes: true
