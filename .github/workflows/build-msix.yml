@@ -34,6 +34,22 @@ jobs:
     - name: Publish x64
       run: dotnet publish ${{ env.PROJECT_PATH }} -c ${{ env.CONFIGURATION }} -r win-x64 --self-contained -o ./publish/x64
 
+    - name: Prepare MSIX package files
+      run: |
+        # Copy manifest as AppxManifest.xml
+        Copy-Item -Path "TickyNote/Package.appxmanifest" -Destination "./publish/x64/AppxManifest.xml"
+
+        # Create Assets folder in publish directory
+        New-Item -Path "./publish/x64/Assets" -ItemType Directory -Force
+
+        # Copy required MSIX assets
+        Copy-Item -Path "TickyNote/Assets/StoreLogo.png" -Destination "./publish/x64/Assets/"
+        Copy-Item -Path "TickyNote/Assets/Square44x44Logo.png" -Destination "./publish/x64/Assets/"
+        Copy-Item -Path "TickyNote/Assets/Square150x150Logo.png" -Destination "./publish/x64/Assets/"
+        Copy-Item -Path "TickyNote/Assets/Wide310x150Logo.png" -Destination "./publish/x64/Assets/"
+        Copy-Item -Path "TickyNote/Assets/SplashScreen.png" -Destination "./publish/x64/Assets/"
+      shell: pwsh
+
     - name: Create self-signed certificate
       run: |
         $cert = New-SelfSignedCertificate -Type Custom -Subject "CN=sriapathre" -KeyUsage DigitalSignature -FriendlyName "TickyNote Signing Certificate" -CertStoreLocation "Cert:\CurrentUser\My" -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
