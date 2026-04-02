@@ -43,7 +43,7 @@ A modern, lightweight countdown timer app for Windows built with WPF and .NET 10
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/TickyNote.git
+   git clone https://github.com/sriapathre/TickyNote.git
    ```
 
 2. Navigate to the project directory:
